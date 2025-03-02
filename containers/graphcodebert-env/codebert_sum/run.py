@@ -109,7 +109,9 @@ def read_examples(filename):
     df = df.reset_index()
     for idx, row in df.iterrows():
         code=row.code
-        nl=row.summary           
+        code=' '.join(code.strip().split())
+        nl=row.summary
+        nl=' '.join(nl.strip().split())         
         examples.append(
             Example(
                     idx = idx,
