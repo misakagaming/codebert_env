@@ -31,6 +31,7 @@ import random
 import logging
 import argparse
 import numpy as np
+import pandas as pd
 from io import open
 from itertools import cycle
 import torch
@@ -84,7 +85,7 @@ class Example(object):
     return examples"""
 
 
-def read_examples(filename):
+"""def read_examples(filename):
     """Read examples from filename."""
     examples=[]
     with open(filename,encoding="utf-8") as f:
@@ -100,6 +101,23 @@ def read_examples(filename):
                         target = nl,
                         ) 
             )
+    return examples"""
+    
+def read_examples(filename):
+    """Read examples from filename."""
+    examples=[]
+    df = pd.read_csv(filename)
+    df = df.reset_index()
+    for idx, row in df.iterrows():
+        code=row.code
+        nl=row.summary           
+        examples.append(
+            Example(
+                    idx = idx,
+                    source=code,
+                    target = nl,
+                    ) 
+        )
     return examples
 
 
